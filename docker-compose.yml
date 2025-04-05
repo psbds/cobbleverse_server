@@ -1,0 +1,46 @@
+
+services:
+  mc-modpack-installer:
+    build:
+      context: .
+      dockerfile: Dockerfile.modinstaller
+    volumes:
+      - ./modpack:/modpack
+      - ./data:/data
+      - ./scripts:/scripts
+    environment:
+      MODRINTH_URL: ${MODRINTH_URL}
+      SERVER_WORLDNAME: ${SERVER_WORLDNAME}
+    entrypoint: ["/bin/sh", "/scripts/install-modpack.sh"]
+
+
+  mc:
+    image: itzg/minecraft-server
+    environment:
+      EULA: "true"
+      TYPE: "FABRIC"
+      VERSION: "1.21.1"
+      FABRIC_LOADER_VERSION: "0.16.10"
+      FABRIC_LAUNCHER_VERSION: "1.0.3"
+      SERVER_WORLDNAME: ${SERVER_WORLDNAME}
+      LEVEL: ${SERVER_WORLDNAME}
+      ENABLE_WHITELIST: "false"
+      DEBUG: ${DEBUG}
+      SERVER_NAME: ${SERVER_NAME}
+      ICON: ${SERVER_ICON}
+      ALLOW_FLIGHT: ${ALLOW_FLIGHT:-False}
+      SPAWN_MONSTERS: ${SPAWN_MONSTERS:-True}
+
+
+    volumes:
+      - ./modpack:/modpack
+      - ./data:/data
+      - ./worlds:/data/worlds
+      - ./scripts/wait-for-modpack.sh:/wait-for-modpack.sh
+    entrypoint: ["/bin/sh", "/wait-for-modpack.sh"]
+    command: []
+    ports:
+      - "25565:25565"
+    depends_on:
+      - mc-modpack-installer
+    restart: unless-stopped
