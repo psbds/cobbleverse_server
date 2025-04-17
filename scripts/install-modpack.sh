@@ -41,7 +41,7 @@ echo "Using index file: $(basename "$INDEX_JSON")"
 echo "Downloading server-required mods..."
 
 # Filter: exclude known client-only mods even if marked "server: required"
-CLIENT_ONLY_MODS="cobblemon-ui-tweaks|interactic"
+CLIENT_ONLY_MODS="cobblemon-ui-tweaks|interactic|ferritecore"
 
 jq -c '.files[] | select(.env.server == "required")' "$INDEX_JSON" | while read -r entry; do
   FILE_PATH=$(echo "$entry" | jq -r '.path')
