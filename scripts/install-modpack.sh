@@ -94,4 +94,11 @@ echo "✅ Modpack install complete for world: $SERVER_WORLDNAME"
 echo "📚 Downloaded $(find "$MODPACK_DIR/mods" -name '*.jar' | wc -l) mod JARs."
 touch "$READY_FILE"
 
+# --- give the server user ownership of everything we just wrote ---
+MC_UID=${MC_UID:-1000}
+MC_GID=${MC_GID:-1000}
+echo "🔒 Fixing permissions to ${MC_UID}:${MC_GID} …"
+chown -R "${MC_UID}:${MC_GID}" /data
+chmod -R u+rwX,go+rX /data/config
+
 tree -a -F > file_structure.txt
