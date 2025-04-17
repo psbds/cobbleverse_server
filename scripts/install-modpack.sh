@@ -73,6 +73,23 @@ mkdir -p "$DATA_DIR/mods"
 rm -rf "$DATA_DIR/mods/*"
 cp -r "$MODPACK_DIR/mods/"* "$DATA_DIR/mods/"
 
+echo "📦   Copying override configs / datapacks into live server dir..."
+
+# 1.  Configs
+mkdir -p "$DATA_DIR/config"
+cp -rn "$MODPACK_DIR/config/"* "$DATA_DIR/config/"
+
+# 2.  Global datapacks (for brand‑new worlds)
+mkdir -p "$DATA_DIR/datapacks"
+cp -r "$MODPACK_DIR/datapacks/"* "$DATA_DIR/datapacks/"
+
+# 3.  Per‑world datapacks (so they’re enabled for the current world too)
+WORLD_DP="$DATA_DIR/${SERVER_WORLDNAME}/datapacks"
+mkdir -p "$WORLD_DP"
+cp -r "$MODPACK_DIR/datapacks/"* "$WORLD_DP/"
+
+
+
 echo "✅ Modpack install complete for world: $SERVER_WORLDNAME"
 echo "📚 Downloaded $(find "$MODPACK_DIR/mods" -name '*.jar' | wc -l) mod JARs."
 touch "$READY_FILE"
