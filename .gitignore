@@ -1,2 +1,7 @@
 .env
 .idea
+
+
+modpack/
+data/
+worlds/

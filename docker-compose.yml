@@ -10,7 +10,7 @@ services:
       - ./data:/data
       - ./scripts:/scripts
     environment:
-      MODRINTH_URL: ${MODRINTH_URL:-https://cdn.modrinth.com/data/Jkb29YJU/versions/X4JhlFiB/COBBLEVERSE%201.3.3.mrpack}
+      MODRINTH_URL: ${MODRINTH_URL}
       SERVER_WORLDNAME: ${SERVER_WORLDNAME:-MY_COBBLEVERSE_WORLD}
     entrypoint: ["/bin/sh", "/scripts/install-modpack.sh"]
 
@@ -21,7 +21,7 @@ services:
       EULA: "true"
       TYPE: "FABRIC"
       VERSION: "1.21.1"
-      FABRIC_LOADER_VERSION: "0.16.10"
+      FABRIC_LOADER_VERSION: "0.16.14"
       FABRIC_LAUNCHER_VERSION: "1.0.3"
       MEMORY: "6G"
       SERVER_WORLDNAME: ${SERVER_WORLDNAME:-MY_COBBLEVERSE_WORLD}
@@ -32,6 +32,7 @@ services:
       ICON: ${SERVER_ICON:-}
       ALLOW_FLIGHT: ${ALLOW_FLIGHT:-False}
       SPAWN_MONSTERS: ${SPAWN_MONSTERS:-False}
+      ONLINE_MODE: "false"
 
 
     volumes:

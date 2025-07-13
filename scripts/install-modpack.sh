@@ -158,7 +158,7 @@ echo "🎉 Modpack install complete for world: $SERVER_WORLDNAME – $(find "$MO
 
 # --- Enable spawn‑debug on first install ------------------------------------
 CFG=/data/config/cobblemon/main.json
-jq '.exportSpawnConfig = true' "$CFG" | sponge "$CFG"
+jq '.exportSpawnConfig = true' "$CFG" > "$CFG.tmp" && mv "$CFG.tmp" "$CFG"
 echo "🔧   Set exportSpawnConfig=true (will generate Best‑Spawner config on first boot)"
 
 
