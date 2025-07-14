@@ -109,7 +109,8 @@ flatten_dp() {
 }
 
 # Flatten at source so every downstream copy inherits the fix
-flatten_dp "$MODPACK_DIR"
+### REMOVED
+#flatten_dp "$MODPACK_DIR"
 
 # Remove macOS metadata files that pollute logs
 find "$MODPACK_DIR/datapacks" -name '.DS_Store' -delete 2>/dev/null || true
